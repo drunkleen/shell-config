@@ -1,15 +1,10 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Suppress Powerlevel10k instant prompt warning
-# typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Installing plugin manager
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -23,6 +18,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 # Add powerlevel10k as plugin
 zinit ice depth=1; zinit light romkatv/powerlevel10k
+
 
 # Loading aliases from .bash_aliases file
 if [ -f "$HOME/.bash_aliases" ]; then
@@ -38,23 +34,11 @@ zinit light Aloxaf/fzf-tab
 # Load zsh-completions
 autoload -U compinit && compinit
 
-# KEYBINDS
-#bindkey -e
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
-
 # HISTORY
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEFILE=$HISTSIZE
-HISTDUP=erase
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
+
 
 # COMPLETION STYLING
 zstyle ':completion:*' matcher-list 'm:{a-Z}={A-Za-z}'
@@ -68,5 +52,23 @@ alias ls='ls --color'
 # FZF initialization
 eval "$(fzf --zsh)"
 
-# Printing NeoFetch
+
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Standard plugins can be found in $ZSH/plugins/
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+export LANG=en_US.UTF-8
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# source /home/skywalker/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 neofetch
+
+source <(fzf --zsh)
+
